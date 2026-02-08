@@ -1,0 +1,87 @@
+# GitHub Pages Configuration
+# ملف تكوين GitHub Pages
+
+# Site Settings
+title: "محمد أحمد - مطور واجهات أمامية"
+description: "Portfolio احترافي لمطور واجهات أمامية متخصص في HTML, CSS, JavaScript و React"
+author: "محمد أحمد"
+email: info@example.com
+baseurl: "" # ضع اسم الـ repo هنا إذا لم يكن في الجذر (مثل: "/portfolio")
+url: "https://your-username.github.io" # استبدل بعنوان موقعك
+
+# Language Settings
+lang: ar
+direction: rtl
+
+# Social Media Links
+social:
+  github: https://github.com/your-username
+  linkedin: https://linkedin.com/in/your-profile
+  twitter: https://twitter.com/your-username
+  email: info@example.com
+
+# SEO Settings
+logo: /assets/images/logo.png
+twitter:
+  username: your-username
+  card: summary_large_image
+
+# Jekyll Settings
+theme: null
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Build Settings
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+  - node_modules/
+  - package.json
+  - package-lock.json
+  - Gemfile
+  - Gemfile.lock
+
+# Include dotfiles
+include:
+  - .htaccess
+  - .well-known
+
+# Collections (if you want to add blog later)
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+
+# Google Analytics (optional - add your tracking ID)
+# google_analytics: UA-XXXXXXXXX-X
+
+# Plugins (optional)
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+
+# Site Settings for SEO
+keywords: 
+  - "مطور واجهات أمامية"
+  - "Front-End Developer"
+  - "HTML CSS JavaScript"
+  - "React Developer"
+  - "Web Developer"
+  - "Portfolio"
+
+# Encoding
+encoding: utf-8
+
+# Timezone
+timezone: Africa/Cairo
