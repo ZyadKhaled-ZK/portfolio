@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تطبيق قائمة المهام - Todo App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-size: 0.9rem;
+        }
+
+        .input-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        #taskInput {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        #taskInput:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        #addBtn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        #addBtn:hover {
+            transform: translateY(-2px);
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            color: #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .filter-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .tasks-list {
+            list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .task-item {
+            background: #f8f9fa;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .task-item.completed {
+            opacity: 0.6;
+        }
+
+        .task-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 1rem;
+        }
+
+        .task-item.completed .task-text {
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6c757d;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+
+        .stats {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid #e9ecef;
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .stat strong {
+            display: block;
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 قائمة المهام</h1>
+        <p class="subtitle">نظم يومك بكفاءة</p>
+
+        <div class="input-section">
+            <input type="text" id="taskInput" placeholder="أضف مهمة جديدة..." />
+            <button id="addBtn">إضافة</button>
+        </div>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="active">نشطة</button>
+            <button class="filter-btn" data-filter="completed">مكتملة</button>
+        </div>
+
+        <ul class="tasks-list" id="tasksList"></ul>
+
+        <div class="stats">
+            <div class="stat">
+                <strong id="totalTasks">0</strong>
+                <span>إجمالي المهام</span>
+            </div>
+            <div class="stat">
+                <strong id="completedTasks">0</strong>
+                <span>مكتملة</span>
+            </div>
+            <div class="stat">
+                <strong id="activeTasks">0</strong>
+                <span>متبقية</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+        let currentFilter = 'all';
+
+        const taskInput = document.getElementById('taskInput');
+        const addBtn = document.getElementById('addBtn');
+        const tasksList = document.getElementById('tasksList');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // إضافة مهمة جديدة
+        function addTask() {
+            const taskText = taskInput.value.trim();
+            if (taskText === '') {
+                alert('الرجاء كتابة مهمة!');
+                return;
+            }
+
+            const task = {
+                id: Date.now(),
+                text: taskText,
+                completed: false,
+                createdAt: new Date().toISOString()
+            };
+
+            tasks.push(task);
+            saveTasks();
+            taskInput.value = '';
+            renderTasks();
+        }
+
+        // عرض المهام
+        function renderTasks() {
+            const filteredTasks = tasks.filter(task => {
+                if (currentFilter === 'active') return !task.completed;
+                if (currentFilter === 'completed') return task.completed;
+                return true;
+            });
+
+            if (filteredTasks.length === 0) {
+                tasksList.innerHTML = `
+                    <div class="empty-state">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                            <path d="M9 11l3 3L22 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <p>لا توجد مهام ${currentFilter === 'active' ? 'نشطة' : currentFilter === 'completed' ? 'مكتملة' : ''} حالياً</p>
+                    </div>
+                `;
+            } else {
+                tasksList.innerHTML = filteredTasks.map(task => `
+                    <li class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+                        <input type="checkbox" ${task.completed ? 'checked' : ''} onchange="toggleTask(${task.id})">
+                        <span class="task-text">${task.text}</span>
+                        <button class="delete-btn" onclick="deleteTask(${task.id})">حذف</button>
+                    </li>
+                `).join('');
+            }
+
+            updateStats();
+        }
+
+        // تبديل حالة المهمة
+        function toggleTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                saveTasks();
+                renderTasks();
+            }
+        }
+
+        // حذف مهمة
+        function deleteTask(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            saveTasks();
+            renderTasks();
+        }
+
+        // حفظ في localStorage
+        function saveTasks() {
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        // تحديث الإحصائيات
+        function updateStats() {
+            document.getElementById('totalTasks').textContent = tasks.length;
+            document.getElementById('completedTasks').textContent = tasks.filter(t => t.completed).length;
+            document.getElementById('activeTasks').textContent = tasks.filter(t => !t.completed).length;
+        }
+
+        // الفلاتر
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderTasks();
+            });
+        });
+
+        // الأحداث
+        addBtn.addEventListener('click', addTask);
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTask();
+        });
+
+        // عرض المهام عند التحميل
+        renderTasks();
+    </script>
+</body>
+</html>

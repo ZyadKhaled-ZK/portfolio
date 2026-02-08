@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بطاقة معلومات الطقس</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .weather-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .city-name {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .date {
+            color: #6c757d;
+            margin-bottom: 30px;
+        }
+        .weather-icon {
+            font-size: 8rem;
+            margin: 30px 0;
+        }
+        .temperature {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .description {
+            font-size: 1.5rem;
+            color: #6c757d;
+            margin-bottom: 40px;
+            text-transform: capitalize;
+        }
+        .details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        .detail-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+        }
+        .detail-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .detail-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .detail-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-card">
+        <div class="city-name" id="cityName">القاهرة</div>
+        <div class="date" id="date">الأحد، 8 فبراير 2024</div>
+        
+        <div class="weather-icon" id="weatherIcon">☀️</div>
+        
+        <div class="temperature" id="temperature">28°</div>
+        
+        <div class="description" id="description">سماء صافية</div>
+        
+        <div class="details">
+            <div class="detail-item">
+                <div class="detail-icon">💨</div>
+                <div class="detail-value" id="windSpeed">15</div>
+                <div class="detail-label">كم/س</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">💧</div>
+                <div class="detail-value" id="humidity">45</div>
+                <div class="detail-label">رطوبة%</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">☁️</div>
+                <div class="detail-value" id="clouds">20</div>
+                <div class="detail-label">غيوم%</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // بيانات وهمية للعرض التوضيحي
+        const weatherData = {
+            city: 'القاهرة',
+            temperature: 28,
+            description: 'سماء صافية',
+            wind: 15,
+            humidity: 45,
+            clouds: 20,
+            icon: '☀️'
+        };
+
+        function updateWeatherDisplay() {
+            // تحديث التاريخ
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('date').textContent = now.toLocaleDateString('ar-EG', options);
+
+            // تحديث بيانات الطقس
+            document.getElementById('cityName').textContent = weatherData.city;
+            document.getElementById('temperature').textContent = weatherData.temperature + '°';
+            document.getElementById('description').textContent = weatherData.description;
+            document.getElementById('weatherIcon').textContent = weatherData.icon;
+            document.getElementById('windSpeed').textContent = weatherData.wind;
+            document.getElementById('humidity').textContent = weatherData.humidity;
+            document.getElementById('clouds').textContent = weatherData.clouds;
+        }
+
+        // تغيير الطقس عشوائياً كل 5 ثوان (للعرض التوضيحي)
+        const weatherStates = [
+            { temp: 28, desc: 'سماء صافية', icon: '☀️', wind: 15, humidity: 45, clouds: 20 },
+            { temp: 24, desc: 'غائم جزئياً', icon: '⛅', wind: 20, humidity: 55, clouds: 50 },
+            { temp: 20, desc: 'ممطر', icon: '🌧️', wind: 25, humidity: 80, clouds: 90 },
+            { temp: 32, desc: 'حار جداً', icon: '🔥', wind: 10, humidity: 30, clouds: 10 }
+        ];
+
+        let currentIndex = 0;
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % weatherStates.length;
+            const state = weatherStates[currentIndex];
+            weatherData.temperature = state.temp;
+            weatherData.description = state.desc;
+            weatherData.icon = state.icon;
+            weatherData.wind = state.wind;
+            weatherData.humidity = state.humidity;
+            weatherData.clouds = state.clouds;
+            updateWeatherDisplay();
+        }, 5000);
+
+        updateWeatherDisplay();
+    </script>
+</body>
+</html>

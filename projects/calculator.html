@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آلة حاسبة - Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator {
+            background: #1a1a2e;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 350px;
+        }
+
+        .display {
+            background: #0f3460;
+            border-radius: 15px;
+            padding: 30px 20px;
+            margin-bottom: 20px;
+            text-align: right;
+            min-height: 100px;
+        }
+
+        .previous-operand {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1.2rem;
+            min-height: 1.5rem;
+        }
+
+        .current-operand {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            min-height: 3rem;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 25px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .num-btn {
+            background: #16213e;
+        }
+
+        .operator-btn {
+            background: #e94560;
+        }
+
+        .equals-btn {
+            background: #00d9ff;
+            grid-column: span 2;
+        }
+
+        .clear-btn {
+            background: #ff6b6b;
+            grid-column: span 2;
+        }
+
+        .delete-btn {
+            background: #f39c12;
+        }
+
+        .zero-btn {
+            grid-column: span 2;
+        }
+
+        .title {
+            text-align: center;
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        @media (max-width: 400px) {
+            button {
+                padding: 20px;
+                font-size: 1.2rem;
+            }
+            
+            .current-operand {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 class="title">🧮 Calc</h1>
+        
+        <div class="display">
+            <div class="previous-operand" id="previousOperand"></div>
+            <div class="current-operand" id="currentOperand">0</div>
+        </div>
+
+        <div class="buttons">
+            <button class="clear-btn" onclick="clear()">AC</button>
+            <button class="delete-btn" onclick="deleteNumber()">DEL</button>
+            <button class="operator-btn" onclick="chooseOperation('÷')">÷</button>
+            
+            <button class="num-btn" onclick="appendNumber('7')">7</button>
+            <button class="num-btn" onclick="appendNumber('8')">8</button>
+            <button class="num-btn" onclick="appendNumber('9')">9</button>
+            <button class="operator-btn" onclick="chooseOperation('×')">×</button>
+            
+            <button class="num-btn" onclick="appendNumber('4')">4</button>
+            <button class="num-btn" onclick="appendNumber('5')">5</button>
+            <button class="num-btn" onclick="appendNumber('6')">6</button>
+            <button class="operator-btn" onclick="chooseOperation('-')">-</button>
+            
+            <button class="num-btn" onclick="appendNumber('1')">1</button>
+            <button class="num-btn" onclick="appendNumber('2')">2</button>
+            <button class="num-btn" onclick="appendNumber('3')">3</button>
+            <button class="operator-btn" onclick="chooseOperation('+')">+</button>
+            
+            <button class="num-btn zero-btn" onclick="appendNumber('0')">0</button>
+            <button class="num-btn" onclick="appendNumber('.')">.</button>
+            <button class="equals-btn" onclick="compute()">=</button>
+        </div>
+    </div>
+
+    <script>
+        let currentOperand = '0';
+        let previousOperand = '';
+        let operation = null;
+
+        const currentOperandElement = document.getElementById('currentOperand');
+        const previousOperandElement = document.getElementById('previousOperand');
+
+        function updateDisplay() {
+            currentOperandElement.textContent = currentOperand;
+            if (operation != null) {
+                previousOperandElement.textContent = `${previousOperand} ${operation}`;
+            } else {
+                previousOperandElement.textContent = previousOperand;
+            }
+        }
+
+        function appendNumber(number) {
+            if (number === '.' && currentOperand.includes('.')) return;
+            if (currentOperand === '0' && number !== '.') {
+                currentOperand = number;
+            } else {
+                currentOperand += number;
+            }
+            updateDisplay();
+        }
+
+        function chooseOperation(op) {
+            if (currentOperand === '') return;
+            if (previousOperand !== '') {
+                compute();
+            }
+            operation = op;
+            previousOperand = currentOperand;
+            currentOperand = '';
+            updateDisplay();
+        }
+
+        function compute() {
+            let computation;
+            const prev = parseFloat(previousOperand);
+            const current = parseFloat(currentOperand);
+            
+            if (isNaN(prev) || isNaN(current)) return;
+
+            switch (operation) {
+                case '+':
+                    computation = prev + current;
+                    break;
+                case '-':
+                    computation = prev - current;
+                    break;
+                case '×':
+                    computation = prev * current;
+                    break;
+                case '÷':
+                    if (current === 0) {
+                        alert('لا يمكن القسمة على صفر!');
+                        clear();
+                        return;
+                    }
+                    computation = prev / current;
+                    break;
+                default:
+                    return;
+            }
+
+            currentOperand = Math.round(computation * 100000000) / 100000000;
+            currentOperand = currentOperand.toString();
+            operation = null;
+            previousOperand = '';
+            updateDisplay();
+        }
+
+        function clear() {
+            currentOperand = '0';
+            previousOperand = '';
+            operation = null;
+            updateDisplay();
+        }
+
+        function deleteNumber() {
+            if (currentOperand === '0') return;
+            currentOperand = currentOperand.slice(0, -1);
+            if (currentOperand === '') {
+                currentOperand = '0';
+            }
+            updateDisplay();
+        }
+
+        // دعم لوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if (e.key >= '0' && e.key <= '9') {
+                appendNumber(e.key);
+            } else if (e.key === '.') {
+                appendNumber('.');
+            } else if (e.key === '+' || e.key === '-') {
+                chooseOperation(e.key);
+            } else if (e.key === '*') {
+                chooseOperation('×');
+            } else if (e.key === '/') {
+                e.preventDefault();
+                chooseOperation('÷');
+            } else if (e.key === 'Enter' || e.key === '=') {
+                compute();
+            } else if (e.key === 'Backspace') {
+                deleteNumber();
+            } else if (e.key === 'Escape') {
+                clear();
+            }
+        });
+
+        updateDisplay();
+    </script>
+</body>
+</html>
