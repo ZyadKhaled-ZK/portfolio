@@ -1,87 +1,66 @@
-# GitHub Pages Configuration
-# ملف تكوين GitHub Pages
+name: Deploy to GitHub Pages
 
-# Site Settings
-title: "محمد أحمد - مطور واجهات أمامية"
-description: "Portfolio احترافي لمطور واجهات أمامية متخصص في HTML, CSS, JavaScript و React"
-author: "محمد أحمد"
-email: info@example.com
-baseurl: "" # ضع اسم الـ repo هنا إذا لم يكن في الجذر (مثل: "/portfolio")
-url: "https://your-username.github.io" # استبدل بعنوان موقعك
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
 
-# Language Settings
-lang: ar
-direction: rtl
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
-# Social Media Links
-social:
-  github: https://github.com/your-username
-  linkedin: https://linkedin.com/in/your-profile
-  twitter: https://twitter.com/your-username
-  email: info@example.com
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
-# SEO Settings
-logo: /assets/images/logo.png
-twitter:
-  username: your-username
-  card: summary_large_image
+jobs:
+  # Clean up old artifacts
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete old artifacts
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const response = await github.rest.actions.listArtifactsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            
+            for (const artifact of response.data.artifacts) {
+              if (artifact.name === 'github-pages') {
+                await github.rest.actions.deleteArtifact({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  artifact_id: artifact.id,
+                });
+                console.log(`Deleted artifact: ${artifact.name} (ID: ${artifact.id})`);
+              }
+            }
 
-# Jekyll Settings
-theme: null
-markdown: kramdown
-highlighter: rouge
-permalink: pretty
+  build:
+    runs-on: ubuntu-latest
+    needs: cleanup
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-# Build Settings
-exclude:
-  - README.md
-  - LICENSE
-  - .gitignore
-  - node_modules/
-  - package.json
-  - package-lock.json
-  - Gemfile
-  - Gemfile.lock
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
 
-# Include dotfiles
-include:
-  - .htaccess
-  - .well-known
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
 
-# Collections (if you want to add blog later)
-collections:
-  projects:
-    output: true
-    permalink: /projects/:name
-
-# Defaults
-defaults:
-  - scope:
-      path: ""
-      type: "projects"
-    values:
-      layout: "project"
-
-# Google Analytics (optional - add your tracking ID)
-# google_analytics: UA-XXXXXXXXX-X
-
-# Plugins (optional)
-plugins:
-  - jekyll-sitemap
-  - jekyll-seo-tag
-  - jekyll-feed
-
-# Site Settings for SEO
-keywords: 
-  - "مطور واجهات أمامية"
-  - "Front-End Developer"
-  - "HTML CSS JavaScript"
-  - "React Developer"
-  - "Web Developer"
-  - "Portfolio"
-
-# Encoding
-encoding: utf-8
-
-# Timezone
-timezone: Africa/Cairo
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
