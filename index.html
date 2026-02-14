@@ -8,8 +8,163 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* Cursor Effects Only - Keep Default Cursor */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease-out;
+            will-change: transform;
+        }
+        
+        .cursor-glow.active {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(168, 85, 247, 0.15) 40%, transparent 70%);
+        }
+        
+        .cursor-ring {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(99, 102, 241, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: all 0.08s ease-out;
+            animation: pulse-ring 1.5s ease-in-out infinite;
+            will-change: transform;
+        }
+        
+        .cursor-ring.active {
+            width: 60px;
+            height: 60px;
+            border-color: rgba(99, 102, 241, 0.8);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.6);
+        }
+        
+        @keyframes pulse-ring {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.15);
+                opacity: 0.6;
+            }
+        }
+        
+        /* Particle effects */
+        .cursor-particle {
+            position: fixed;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9997;
+            animation: particle-float 0.6s ease-out forwards;
+            will-change: transform, opacity;
+        }
+        
+        @keyframes particle-float {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(var(--tx), var(--ty)) scale(0);
+            }
+        }
+        
+        /* Trail dots */
+        .trail-dot {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: rgba(99, 102, 241, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9996;
+            animation: trail-fade 0.4s ease-out forwards;
+            will-change: transform, opacity;
+        }
+        
+        @keyframes trail-fade {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+        }
+        
+        /* Sparkle effect */
+        .sparkle {
+            position: fixed;
+            width: 3px;
+            height: 3px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            animation: sparkle-twinkle 0.5s ease-out forwards;
+            will-change: transform, opacity;
+        }
+        
+        @keyframes sparkle-twinkle {
+            0% {
+                opacity: 1;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(360deg);
+            }
+        }
+        
+        /* Ripple effect on click */
+        .ripple {
+            position: fixed;
+            border: 2px solid rgba(99, 102, 241, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9995;
+            animation: ripple-expand 0.4s ease-out forwards;
+            will-change: transform, opacity;
+        }
+        
+        @keyframes ripple-expand {
+            0% {
+                width: 20px;
+                height: 20px;
+                opacity: 1;
+            }
+            100% {
+                width: 120px;
+                height: 120px;
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Cursor Effects -->
+    <div class="cursor-glow"></div>
+    <div class="cursor-ring"></div>
+    
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -335,5 +490,169 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Cursor Effects JavaScript (Keep Default Cursor) - FASTER & SMOOTHER
+        const glow = document.querySelector('.cursor-glow');
+        const ring = document.querySelector('.cursor-ring');
+        
+        let mouseX = 0;
+        let mouseY = 0;
+        let glowX = 0;
+        let glowY = 0;
+        let trailCounter = 0;
+        let particleCounter = 0;
+        
+        // Track mouse movement with RAF for smoothness
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Update ring position immediately with transform for better performance
+            ring.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+            
+            // Create trail dots more frequently
+            trailCounter++;
+            if (trailCounter % 1 === 0) { // Every frame now
+                createTrailDot(mouseX, mouseY);
+            }
+            
+            // Create particles on hover
+            if (ring.classList.contains('active')) {
+                particleCounter++;
+                if (particleCounter % 2 === 0) { // More frequent
+                    createParticle(mouseX, mouseY);
+                    if (particleCounter % 6 === 0) { // More sparkles
+                        createSparkle(mouseX, mouseY);
+                    }
+                }
+            }
+        });
+        
+        // Ultra smooth glow animation with RAF
+        function animateGlow() {
+            const distX = mouseX - glowX;
+            const distY = mouseY - glowY;
+            
+            // Faster following
+            glowX += distX / 5; // Changed from /10
+            glowY += distY / 5;
+            
+            glow.style.transform = `translate(${glowX}px, ${glowY}px) translate(-50%, -50%)`;
+            
+            requestAnimationFrame(animateGlow);
+        }
+        
+        animateGlow();
+        
+        // Create trail dot effect
+        function createTrailDot(x, y) {
+            const dot = document.createElement('div');
+            dot.className = 'trail-dot';
+            dot.style.left = x + 'px';
+            dot.style.top = y + 'px';
+            document.body.appendChild(dot);
+            
+            setTimeout(() => dot.remove(), 400); // Faster removal
+        }
+        
+        // Create particle effect
+        function createParticle(x, y) {
+            const particle = document.createElement('div');
+            particle.className = 'cursor-particle';
+            
+            const size = Math.random() * 6 + 3;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            
+            const colors = ['rgba(99, 102, 241, 0.8)', 'rgba(168, 85, 247, 0.8)', 'rgba(236, 72, 153, 0.8)', 'rgba(59, 130, 246, 0.8)'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Faster and longer travel distance
+            const tx = (Math.random() - 0.5) * 120;
+            const ty = (Math.random() - 0.5) * 120;
+            particle.style.setProperty('--tx', tx + 'px');
+            particle.style.setProperty('--ty', ty + 'px');
+            
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 600); // Faster removal
+        }
+        
+        // Create sparkle effect
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = (x + (Math.random() - 0.5) * 50) + 'px';
+            sparkle.style.top = (y + (Math.random() - 0.5) * 50) + 'px';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 500); // Faster
+        }
+        
+        // Create ripple effect on click
+        function createRipple(x, y) {
+            for (let i = 0; i < 3; i++) { // Multiple ripples
+                setTimeout(() => {
+                    const ripple = document.createElement('div');
+                    ripple.className = 'ripple';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.transform = 'translate(-50%, -50%)';
+                    document.body.appendChild(ripple);
+                    
+                    setTimeout(() => ripple.remove(), 400);
+                }, i * 50);
+            }
+        }
+        
+        // Add hover effect for clickable elements
+        const clickables = document.querySelectorAll('a, button, .btn, input, textarea, .project-link, .filter-btn, .nav-link, .menu-toggle, .social-link, .project-card, .skill-card');
+        
+        clickables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                ring.classList.add('active');
+                glow.classList.add('active');
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                ring.classList.remove('active');
+                glow.classList.remove('active');
+            });
+        });
+        
+        // Click effect - EXPLOSION OF PARTICLES!
+        document.addEventListener('mousedown', () => {
+            createRipple(mouseX, mouseY);
+            
+            // Create massive burst of particles
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => createParticle(mouseX, mouseY), i * 10);
+            }
+            
+            // Create sparkles
+            for (let i = 0; i < 12; i++) {
+                setTimeout(() => createSparkle(mouseX, mouseY), i * 25);
+            }
+        });
+        
+        // Hide effects when mouse leaves
+        document.addEventListener('mouseleave', () => {
+            glow.style.opacity = '0';
+            ring.style.opacity = '0';
+        });
+        
+        document.addEventListener('mouseenter', () => {
+            glow.style.opacity = '1';
+            ring.style.opacity = '1';
+        });
+        
+        // Random sparkles continuously - MORE FREQUENT
+        setInterval(() => {
+            if (ring.classList.contains('active')) {
+                createSparkle(mouseX, mouseY);
+            }
+        }, 150); // Faster interval
+    </script>
 </body>
 </html>
