@@ -273,5 +273,5 @@ fadeElements.forEach(element => {
 
 // Console greeting (fun Easter egg)
 console.log('%c مرحباً بك في موقعي! 👋', 'color: #6366f1; font-size: 20px; font-weight: bold;');
-console.log('%c إذا كنت تبحث في الكود، فأنت في المكان الصحيح! 🚀', 'color: #f59e0b; font-size: 14px;');
-console.log('%c تواصل معي: info@example.com', 'color: #94a3b8; font-size: 12px;');
+console.log('%c ايه الاخبار؟! 🚀', 'color: #f59e0b; font-size: 14px;');
+console.log('%c تواصل معي: zyadxtmore@gmail.com', 'color: #94a3b8; font-size: 12px;');
