@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Quest - 2D Platformer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui">
+            <div class="ui-item">
+                <span>LEVEL: <span id="levelDisplay">1</span></span>
+            </div>
+            <div class="ui-item">
+                <span>SCORE: <span id="scoreDisplay">0</span></span>
+            </div>
+            <div class="ui-item">
+                <span>COINS: <span id="coinsDisplay">0</span></span>
+            </div>
+            <div class="ui-item health-bar" id="healthBar"></div>
+            <div class="ui-item">
+                <span>STAMINA:</span>
+                <div style="width: 100px; height: 10px; background: #333; border: 2px solid #fff; display: inline-block; margin-left: 5px;">
+                    <div id="staminaBar" style="width: 100%; height: 100%; background: linear-gradient(90deg, #2ecc71, #27ae60);"></div>
+                </div>
+            </div>
+        </div>
+        <div id="menu">
+            <h1>PIXEL QUEST :D</h1>
+            <button id="startBtn">START GAME</button>
+            <button id="restartBtn" class="hidden">RESTART</button>
+            <div id="instructions">
+                <p>Controls:</p>
+                <p><span class="key">←</span> <span class="key">→</span> Move | <span class="key">SPACE</span> Jump | <span class="key">SHIFT</span> Sprint | <span class="key">↓</span> Slide</p>
+                <p><span class="key">X</span> Shoot | <span class="key">ESC</span> Pause</p>
+                <p style="margin-top: 10px;">Defeat enemies, collect coins, reach the flag!</p>
+                <p style="margin-top: 5px; color: #ffd700;"> Wall Jump • Sprint • Slide • Shoot! </p>
+                <p style="margin-top: 5px; font-size: 12px; color: #e74c3c;">RED = Walker | PURPLE = Jumper | ORANGE = Shooter (2 HP)</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
