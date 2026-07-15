@@ -1,160 +1,108 @@
-# زياد خالد - محفظة شخصية
+# Zyad Khaled — Cyberpunk Portfolio
 
-## نظرة عامة
-محفظة شخصية متطورة ومتجاوبة لزياد خالد، مطور ويب متخصص في HTML5، CSS3، JavaScript، وتطوير تطبيقات الويب الحديثة. تتيح لك هذه الصفحة عرض جاهز للعمل فورًا، والوصول إلى بيانات الملف الشخصي المباشرة من GitHub وLinkedIn، واكتشاف جميع مشاريعي.
+A cyberpunk-themed, fully dynamic portfolio website with live data from GitHub API, LinkedIn JSON data, weather API, and a working contact form via FormSubmit.co. Deployed automatically via GitHub Actions to GitHub Pages.
 
-## الميزات الرئيسية
+## Live Demo
 
-### 🌐 تصفح الموقع جاهز للعمل فورًا
-- **عرض فوري** - لا حاجة لتكوين الخوادم المحلية
-- **متجاوب بشكل كامل** - يعمل على أجهزة الكمبيوتر المكتبية، والأجهزة اللوحية، والهواتف المحمولة
-- **وضع اللمس المحسن** - مثالي للاستخدام على الأجهزة التي تعمل باللمس
-- **راحة البال عند عدم الاتصال بالإنترنت** - يعمل المحرك دون الحاجة إلى خدمات خارجية
+**[https://zyadkhaled-zk.github.io/portfolio](https://zyadkhaled-zk.github.io/portfolio)**
 
-### 📊 بيانات مباشرة من GitHub وLinkedIn
-- **GitHub Integration** - عرض الأنشطة الحديثة، والإحصائيات، والمستودعات مباشرة
-- **LinkedIn Integration** - عرض معلومات الملف الشخصي، والشهادات، والتحديثات
-- **تحديثات في الوقت الفعلي** - تجديد البيانات تلقائيًا كل 2-5 دقائق
-- **تدفق معلومات يدوي** - زر تحديث يدوي لتحديثات فورية
+## Features
 
-### 🎯 تجربة مستخدم غنية
-- **رسومات متحركة** - تأثيرات بصرية جذابة وعالية الجودة
-- **التفاعل المدروس** - مؤشرات حالة واضحة وإمكانية التحديث اليدوي
-- **عرض البيانات في الزمن الحقيقي** - شريط تقدم يعرض حالة التجديد
-- **أنماط خاصة بـ RTL** - مثالية للتوافق مع اللغات التي تكتب من اليمين إلى اليسار
+### Cyberpunk UI
+- Neon cyan / magenta / yellow color scheme with glassmorphism cards
+- Glitch text effects, scanlines, and animated gradients
+- Smooth cubic-bezier transitions and hover interactions
+- Fully responsive — works on desktop, tablet, and mobile
+- RTL Arabic layout with modern CSS (backdrop-filter, gradient text, pill badges)
 
-## كيفية الاستخدام
+### Live GitHub Integration
+- Fetches profile data, repositories, and stats from GitHub API in real-time
+- Dynamic project cards with language tags, stars, and links
+- Auto-refreshes every few minutes with manual refresh button
 
-### تصفح الموقع
-```bash
-# افتح الموقع مباشرة في المتصفح
-# يعمل على جميع أنظمة التشغيل
-# لا حاجة للن node، npm، أو أي تكوين
+### LinkedIn Data
+- Experience timeline (Youth Economy Lab, FlyRank AI, DEPI, ALX Africa)
+- Certifications, skills, and languages loaded from `data/linkedin.json`
+- Fetched via raw GitHub URL with local fallback for resilience
+
+### Weather Widget
+- Real-time weather for Banha, Egypt via OpenWeatherMap API
+- Auto-updating temperature, description, and weather icons
+
+### Contact Form
+- Working contact form powered by FormSubmit.co (no backend required)
+- AJAX submission — stays on page with success/error feedback
+- Honeypot spam protection, auto-response, and styled email template
+- Emails delivered to your inbox with one-time activation
+
+### Icons & Typography
+- Font Awesome 6.5.1 for UI icons
+- Devicon 2.16.0 for skill/technology icons (C#, JS, HTML, SQL, Python, C++, Docker, Git)
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Markup | HTML5 |
+| Styling | CSS3 (Cyberpunk theme, glassmorphism, animations) |
+| Logic | Vanilla JavaScript ES6+ |
+| APIs | GitHub REST API, OpenWeatherMap API |
+| Data | LinkedIn JSON file served via GitHub raw URL |
+| Forms | FormSubmit.co (AJAX, no backend) |
+| Icons | Font Awesome 6.5.1, Devicon 2.16.0 |
+| CI/CD | GitHub Actions → GitHub Pages |
+
+## Project Structure
+
+```
+portfolio/
+├── index.html                  # Main portfolio page
+├── styles.css                  # Cyberpunk CSS (glassmorphism, neon, animations)
+├── script.js                   # API integrations, dynamic rendering, interactions
+├── data/
+│   └── linkedin.json           # LinkedIn profile data (experience, certs, skills)
+├── projects/
+│   ├── Pixel Quest/            # JavaScript game
+│   ├── 3D Transform Lib/       # 3D math library with tests
+│   ├── todo-app/               # Todo application
+│   ├── calculator/             # Calculator app
+│   └── ...                     # Other sub-projects
+└── .github/
+    └── workflows/
+        └── deploy.yml          # Auto-deploy to GitHub Pages
 ```
 
-### عرض البيانات المباشرة
-- زر **التحديث المباشر** العائم على الجانب الأيمن للأسفل
-- عارض التقدم الظاهر في الزاوية العلوى اليمنى يعرض حالة التجديد
-- العلامات الحية تظهر عند تحديث البيانات بنجاح
+## Getting Started
 
-### عرض المشاريع
-- عرض ملف شخصي **GitHub** مع المشاريع الحديثة
-- **ثلاثة أقسام رئيسية** للسياسة والألعاب والواقع الافتراضي
-- **تكامل أعمال** - عرض الشبكات التقنية والبيانات
+No build step required — open `index.html` in any browser or visit the live site.
 
-## الوصول إلى البيانات المباشرة
+To run locally:
+```bash
+git clone https://github.com/ZyadKhaled-ZK/portfolio.git
+cd portfolio
+# Open index.html in your browser
+```
 
-### GitHub API
-- عرض الإحصائيات: عدد المواقع العامة، المتابعين، النجوم
-- عرض المشاريع الحديثة مع استعراض الترميز
-- عرض معلومات المنظمة والنشاط
+## Customization
 
-### LinkedIn API (عبر GitHub README)
-- عرض بيانات الملف الشخصي (الاسم، المهنة، الموقع)
-- عرض الملخص وتاريخ التحديث
-- عرض حالة التحقق
+- **GitHub username**: Update `GITHUB_USERNAME` in `script.js`
+- **Weather city**: Change the `q=` parameter in the weather API URL
+- **LinkedIn data**: Edit `data/linkedin.json`
+- **Contact email**: Update the FormSubmit action URL in `index.html`
+- **Theme colors**: Modify CSS custom properties in `:root` in `styles.css`
 
-## تحديث البيانات
+## Browser Support
 
-### التحديث التلقائي
-- يتم تجديد البيانات كل 2-5 دقائق (حسب الحمل)
-- يتم اكتشاف التغييرات تلقائيًا
-- يتم تحديث واجهة المستخدم دون تحميل الصفحة
+- Chrome ✅
+- Firefox ✅
+- Edge ✅
+- Safari ✅
+- Mobile browsers ✅
 
-### التحديث اليدوي
-- انقر على زر **التحديث المباشر** لتحديث فوري
-- يتم عرض شريط تقدم عائم
-- يتم تغيير الألوان للإشارة إلى حالة التحديث
+## License
 
-## ملفات المشروع
-
-### الملفات الرئيسية
-- `index.html` - الصفحة الرئيسية والمتجر الكامل (جاهز للعمل)
-- `styles.css` - أنماط متجاوبة وأنيقة
-- `script.js` - محرك البيانات المباشرة ومعالج التفاعل
-
-### بيانات GitHub
-- `projects/3d-transform-lib/` - مكتبة تحويلات ثلاثية الأبعاد
-- `projects/3d-transform-lib/tests/transform.test.js` - الاختبارات المتقدمة
-- `projects/3d-transform-lib/examples/demo.html` - مثال توضيحي
-
-### بيانات LinkedIn
-- `README.md` - بيانات محفظة GitHub (عرض عبر GitHub API)
-- `projects/layali-alsahraa.html` - RPG نصي مدعوم بالذكاء الاصطناعي
-
-## المواصفات التقنية
-
-### الأطر
-- **HTML5/CSS3** - علامات دلالية حديثة وتصميم متجاوب
-- **JavaScript ES6+** - محركات حديثة للسياسة والتفاعل
-- **GitHub APIs** - بيانات GitHub ومشاريعها المباشرة
-
-### أدوات التطوير
-- **بناء 'جاهز للعمل'** - لا حاجة إلى التحويل/التجميع
-- **تطبيقات سطح المكتب** - يتم فتحها بالكامل دون الحاجة إلى تكوين إضافي
-- **GitHub Actions** - النشر التلقائي إلى GitHub Pages
-
-### تجربة المستخدم
-- **وضع اللمس المحسن** - مثالي للهواتف والأجهزة اللوحية
-- **دعم اللغات المزدوجة** - عربية وإنجليزية
-- **الظل الداكن في الخلفية** - أجواء مميزة
-
-## الوصول إلى البيانات المباشرة
-
-يتم توفير الوصول إلى البيانات المباشرة من GitHub وLinkedIn بشكل خاص لضمان التوافق الأمثل وتجربة مستخدم عالية الجودة:
-
-- **GitHub API** - الوصول إلى الملف الشخصي، والإحصائيات، والإيرادات الحديثة
-- **GitHub Actions** - عمليات النشر التلقائية والأتمتة
-- **CORS الآمن** - تجنب مشاكل القيود في المتصفح
-- **تدفق البيانات حسب الطلب** - تحديثات أولوية عالية
-
-## نصائح التخصيص
-
-### عرض المشاريع
-- تعديل `GitHubConfig` في script.js لعرض المنظمة أو الخاصية
-- تغيير `refreshInterval` للتحكم في وتيرة التحديث
-- تعديل النصوص العربية للوصول إلى تجربة متعددة اللغات
-
-### بيانات الفهرس
-- تعديل `branch` أو `owner` في عنوان URL لـ GitHub لمستودعات أخرى
-- تخصيص الحد الأقصى للمشاريع المعروضة (`maxRepos: 10`)
-- عرض اللغات المفضلة وأهميتها (القمة محددة حسب الشعبية)
-
-### واجهة المستخدم
-- تعديل الألوان والتأثيرات في `LiveDataService.updateUIWithNewData()`
-- تغيير أنماط الإشعارات في `data-refresh-indicator`
-- تعديل مواضع الأزرار والملاحة
-
-## نظام التشغيل
-- ماك أو إس ✅
-- ويندوز ✅
-- لينكس ✅
-- كروم أو إس ✅
-- إيستوون ✅
-- فايرفوكس ✅
-
-## مراجع
-- [GitHub API v3](https://docs.github.com/en/rest)
-- [LinkedIn API](https://docs.microsoft.com/en-us/linkedin/shared/api)
-- [GitHub Pages](https://pages.github.com)
-- [GitHub Actions](https://docs.github.com/en/actions)
-
-## حقوق النشر
-© 2025 زياد خالد محمد سعد. جميع الحقوق محفوظة.
-
-*تم التصميم والتطوير باستخدام التكنولوجيا الحديثة، والتفاعل المدروس، والشغف بالجمال الرقمي.*
+© 2025 Zyad Khaled Mohamed Saad. All rights reserved.
 
 ---
 
-## قائمة التحقق من التوافق
-- 📱 التصميم المتجاوب يعمل بشكل مثالي
-- 🔍 جاهز للتطبيق في المتصفح دون تحميل غير ضروري
-- 📈 تحديثات البيانات المباشرة تعمل بشكل مثالي
-- 🖥️ التدفق السلس المدروس يعزز تجربة المستخدم
-- 💨 تأخر أقل من 300 مللي ثانية في تفاعلات السياسة الرئيسية
-
-## حالة المشروع
-✅ **جاهز للعمل - يعمل فورًا في أي متصفح**
-✅ **جاري التفعيل - جارٍ نشر البيانات المباشرة**
-⚠️ **اختبارات Phase 1 - يتم بناؤها**
-
+*Built with passion for digital aesthetics and clean code.*
