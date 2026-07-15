@@ -10,7 +10,7 @@
             repos: `${GITHUB_API}/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`,
             events: `${GITHUB_API}/users/${GITHUB_USERNAME}/events/public?per_page=10`
         },
-        linkedin: 'data/linkedin.json',
+        linkedin: `https://raw.githubusercontent.com/${GITHUB_USERNAME}/portfolio/main/data/linkedin.json`,
         weather: 'https://api.openweathermap.org/data/2.5/weather?q=Banha,EG&units=metric&lang=ar',
         weatherKey: 'demo',
         quotes: 'https://api.quotable.io/random?tags=technology,future'
@@ -231,9 +231,18 @@
             if (res.ok) {
                 state.linkedinData = await res.json();
                 updateLinkedinUI(state.linkedinData);
+                return;
+            }
+        } catch (err) {}
+
+        try {
+            const res = await fetch('data/linkedin.json');
+            if (res.ok) {
+                state.linkedinData = await res.json();
+                updateLinkedinUI(state.linkedinData);
             }
         } catch (err) {
-            console.log('[CYBER] LinkedIn data file unavailable');
+            console.log('[CYBER] LinkedIn data unavailable');
         }
     }
 
