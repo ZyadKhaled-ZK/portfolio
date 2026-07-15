@@ -11,8 +11,7 @@
             events: `${GITHUB_API}/users/${GITHUB_USERNAME}/events/public?per_page=10`
         },
         linkedin: `https://raw.githubusercontent.com/${GITHUB_USERNAME}/portfolio/main/data/linkedin.json`,
-        weather: 'https://api.openweathermap.org/data/2.5/weather?q=Banha,EG&units=metric&lang=ar',
-        weatherKey: 'demo',
+        weather: `https://api.openweathermap.org/data/2.5/weather?q=Banha,EG&units=metric&lang=ar&appid=${'f143f4b202924581ba8163254251812'}`,
         quotes: 'https://api.quotable.io/random?tags=technology,future'
     };
 
