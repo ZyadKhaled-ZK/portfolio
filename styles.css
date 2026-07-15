@@ -517,6 +517,10 @@ section { position: relative; z-index: 2; }
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 15px;
 }
+.skill-devicon {
+    font-size: 2rem;
+    color: var(--neon-cyan);
+}
 .skill-icon-text {
     font-family: var(--font-display); font-size: 0.8rem;
     font-weight: 900; color: var(--neon-cyan); letter-spacing: 1px;
@@ -623,8 +627,8 @@ section { position: relative; z-index: 2; }
 .contact-icon {
     width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
     background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.2);
-    border-radius: 4px; color: var(--neon-cyan); font-family: var(--font-mono);
-    font-size: 0.7rem; flex-shrink: 0;
+    border-radius: 4px; color: var(--neon-cyan);
+    font-size: 0.85rem; flex-shrink: 0;
 }
 .social-links { display: flex; gap: 10px; }
 .social-link {
@@ -632,12 +636,13 @@ section { position: relative; z-index: 2; }
     border: 1px solid var(--border-glow); border-radius: 4px;
     display: flex; align-items: center; justify-content: center;
     color: var(--neon-cyan); transition: all 0.3s ease;
+    font-size: 1.1rem;
 }
 .social-link:hover {
     background: rgba(0,240,255,0.1); border-color: var(--neon-cyan);
     transform: translateY(-3px); box-shadow: 0 0 15px rgba(0,240,255,0.2);
 }
-.social-link svg { width: 16px; height: 16px; fill: currentColor; }
+.social-link i { font-size: 1.1rem; }
 .contact-form-wrap {
     background: var(--bg-dark); border: 1px solid var(--border-glow);
     border-radius: 4px; overflow: hidden;

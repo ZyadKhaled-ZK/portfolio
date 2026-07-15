@@ -1,0 +1,117 @@
+{
+    "linkedin": {
+        "profile": {
+            "name": "Zyad Khaled",
+            "headline": ".NET Backend Developer | Full-Stack Developer",
+            "location": "Banha, Egypt",
+            "connections": 355,
+            "followers": 359,
+            "summary": "I am a passionate .NET Backend Developer with hands-on experience in building scalable web applications using ASP.NET Core, Entity Framework, and modern development practices."
+        },
+        "experience": [
+            {
+                "id": 1,
+                "title": "Summer Cohort Participant – Computation (CS + Econ)",
+                "company": "Youth Economy Lab",
+                "type": "Internship",
+                "startDate": "2026-07",
+                "endDate": null,
+                "duration": "1 mo",
+                "location": "Remote",
+                "current": true,
+                "description": "Selected for the Youth Economy Lab 2026 Summer Cohort in the Computation (CS + Econ) track. Collaborating with a global cohort to explore the intersection of computer science and economics through computational thinking, data analysis, and real-world applications.",
+                "skills": ["Economics", "Computational Intelligence", "Data Analysis"]
+            },
+            {
+                "id": 2,
+                "title": "Backend AI Engineer - Intern",
+                "company": "FlyRank AI",
+                "type": "Internship",
+                "startDate": "2026-06",
+                "endDate": null,
+                "duration": "2 mos",
+                "location": "Egypt · Remote",
+                "current": true,
+                "description": "Currently interning at FlyRank AI as an AI intern, focusing on Backend AI Engineering.",
+                "skills": ["AI", "Backend Engineering", "Python"]
+            },
+            {
+                "id": 3,
+                "title": "Full Stack Developer",
+                "company": "Digital Egypt Pioneers Initiative - DEPI",
+                "type": "Internship",
+                "startDate": "2025-10",
+                "endDate": null,
+                "duration": "10 mos",
+                "location": "Egypt · Remote",
+                "current": true,
+                "description": "Full Stack Development program with DEPI focusing on modern web development technologies and practices.",
+                "skills": ["Full Stack", "ASP.NET", "DEPI"]
+            },
+            {
+                "id": 4,
+                "title": "Student Intern",
+                "company": "ALX Africa",
+                "type": "Full-time",
+                "startDate": "2024-02",
+                "endDate": "2024-03",
+                "duration": "2 mos",
+                "location": "Remote",
+                "current": false,
+                "description": "Software Engineering training at ALX Africa covering AI Career Essentials and modern development practices.",
+                "skills": ["Software Engineering", "AI", "ALX"]
+            }
+        ],
+        "education": [
+            {
+                "school": "Benha National University",
+                "degree": "Bachelor's Degree",
+                "field": "Computer Science",
+                "startYear": 2023,
+                "endYear": null,
+                "current": true
+            }
+        ],
+        "certifications": [
+            {
+                "title": "SQL (Basic)",
+                "issuer": "HackerRank",
+                "date": "2026-01",
+                "verifyUrl": "https://www.hackerrank.com/certificates/24d69cdc50d8"
+            },
+            {
+                "title": "SQL (Intermediate)",
+                "issuer": "HackerRank",
+                "date": "2026-01",
+                "verifyUrl": null
+            },
+            {
+                "title": "ALX AiCE - AI Career Essentials",
+                "issuer": "ALX Africa",
+                "date": "2024-05",
+                "verifyUrl": "https://intranet.alxswe.com/certificates/5ThpB2y89c"
+            },
+            {
+                "title": "Beginning SQL Server",
+                "issuer": "Coursera",
+                "date": "2024-02",
+                "verifyUrl": "https://www.coursera.org/account/accomplishments/certificate/QH9V8PFDGGHB"
+            }
+        ],
+        "skills": [
+            {"name": "C# / .NET 8", "level": 85},
+            {"name": "JavaScript (ES6+)", "level": 75},
+            {"name": "HTML5 & CSS3", "level": 85},
+            {"name": "SQL Server", "level": 70},
+            {"name": "Python", "level": 65},
+            {"name": "C++", "level": 60},
+            {"name": "Docker", "level": 55},
+            {"name": "Git & GitHub", "level": 70}
+        ],
+        "languages": [
+            {"name": "Arabic", "proficiency": "Full professional proficiency"},
+            {"name": "English", "proficiency": "Limited working proficiency"},
+            {"name": "German", "proficiency": "Elementary proficiency"}
+        ]
+    }
+}
