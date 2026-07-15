@@ -664,6 +664,22 @@ section { position: relative; z-index: 2; }
     border-color: var(--neon-cyan); box-shadow: 0 0 0 2px rgba(0,240,255,0.1);
     background: rgba(0,240,255,0.03);
 }
+.form-status {
+    margin-top: 15px; padding: 12px 15px; border-radius: 4px;
+    font-family: var(--font-mono); font-size: 0.8rem;
+    display: none; letter-spacing: 0.5px;
+}
+.form-status.success {
+    display: block; background: rgba(0,255,136,0.08);
+    border: 1px solid rgba(0,255,136,0.3); color: var(--neon-green);
+}
+.form-status.error {
+    display: block; background: rgba(255,51,102,0.08);
+    border: 1px solid rgba(255,51,102,0.3); color: var(--neon-red);
+}
+button:disabled {
+    opacity: 0.6; cursor: not-allowed;
+}
 
 .footer {
     background: var(--bg-card); border-top: 1px solid var(--border-glow);

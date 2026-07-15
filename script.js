@@ -176,12 +176,40 @@
     function initContactForm() {
         const form = document.getElementById('contactForm');
         if (!form) return;
-        form.addEventListener('submit', e => {
+
+        form.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            alert(`[SYSTEM] Message received from ${name}\nEmail: ${email}\nStatus: QUEUED_FOR_DELIVERY`);
-            form.reset();
+            const btn = form.querySelector('button[type="submit"]');
+            const status = document.getElementById('formStatus');
+            const originalText = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري الإرسال...';
+            btn.disabled = true;
+
+            try {
+                const formData = new FormData(form);
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    status.innerHTML = '<i class="fas fa-check-circle"></i> [SYSTEM] تم إرسال رسالتك بنجاح! سأتواصل معك قريباً.';
+                    status.className = 'form-status success';
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (err) {
+                status.innerHTML = '<i class="fas fa-exclamation-triangle"></i> [ERROR] فشل الإرسال. حاول مرة أخرى أو تواصل عبر Discord.';
+                status.className = 'form-status error';
+            }
+
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+
+            setTimeout(() => { status.innerHTML = ''; status.className = 'form-status'; }, 5000);
         });
     }
 

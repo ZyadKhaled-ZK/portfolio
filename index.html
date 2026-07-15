@@ -486,22 +486,31 @@
                         <span class="terminal-dot green"></span>
                         <span class="terminal-title">send_message.sh</span>
                     </div>
-                    <form id="contactForm" class="contact-form">
+                    <form id="contactForm" class="contact-form" action="https://formsubmit.co/zyadxtmore@gmail.com" method="POST">
+                        <input type="hidden" name="_next" value="https://ZyadKhaled-ZK.github.io/portfolio/#contact">
+                        <input type="hidden" name="_captcha" value="true">
+                        <input type="hidden" name="_subject" value="New message from ZK://DEV Portfolio">
+                        <input type="hidden" name="_template" value="table">
                         <div class="form-group">
-                            <label for="name">&gt; الاسم:</label>
-                            <input type="text" id="name" placeholder="اكتب اسمك هنا" required>
+                            <label for="name"><i class="fas fa-user"></i> &gt; الاسم:</label>
+                            <input type="text" id="name" name="name" placeholder="اكتب اسمك هنا" required>
                         </div>
                         <div class="form-group">
-                            <label for="email">&gt; البريد الإلكتروني:</label>
-                            <input type="email" id="email" placeholder="example@email.com" required>
+                            <label for="email"><i class="fas fa-envelope"></i> &gt; البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" placeholder="example@email.com" required>
                         </div>
                         <div class="form-group">
-                            <label for="message">&gt; الرسالة:</label>
-                            <textarea id="message" rows="4" placeholder="اكتب رسالتك هنا..." required></textarea>
+                            <label for="subject"><i class="fas fa-tag"></i> &gt; الموضوع:</label>
+                            <input type="text" id="subject" name="subject" placeholder="موضوع الرسالة" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message"><i class="fas fa-comment-dots"></i> &gt; الرسالة:</label>
+                            <textarea id="message" name="message" rows="4" placeholder="اكتب رسالتك هنا..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-full">
                             <i class="fas fa-paper-plane"></i> إرسال الرسالة
                         </button>
+                        <div class="form-status" id="formStatus"></div>
                     </form>
                 </div>
             </div>
